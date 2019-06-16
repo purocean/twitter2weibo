@@ -1,0 +1,12 @@
+import { resolve } from 'path'
+
+export default {
+    headless: true,
+    proxy: 'http://127.0.0.1:1080',
+    rootPath: resolve(__dirname, './data'),
+    chromePath: undefined,
+    weibo: {
+        username: '',
+        password: ''
+    }
+}
