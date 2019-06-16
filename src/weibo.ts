@@ -54,7 +54,7 @@ const doSend = async (page: Page, navigationPromise: Promise<any>, text: string,
         e.value = val
         e.dispatchEvent(new Event('input'))
     }, text)
-    await sleep(1500)
+    await sleep(2500)
 
     if (imgs.length > 0) {
         log('添加图片', imgs)
@@ -72,17 +72,13 @@ const doSend = async (page: Page, navigationPromise: Promise<any>, text: string,
     }
 
     log('点击发送按钮')
-    screenshot(page, 'log')
-    await sleep(2000)
     const buttonSelector = '#app > div.m-wrapper.m-wbox > div > header > div.m-box.m-flex-grow1.m-box-model.m-fd-row.m-aln-center.m-justify-end.m-flex-base0 > a'
     await page.waitForSelector(buttonSelector)
     await page.click(buttonSelector)
 
-    screenshot(page, 'log')
     await sleep(1500)
 
     if (page.url().startsWith(url)) {
-        screenshot(page, 'log')
         throw '微博发布失败'
     } else {
         log('发布成功')
