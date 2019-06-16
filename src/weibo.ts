@@ -76,7 +76,7 @@ const doSend = async (page: Page, navigationPromise: Promise<any>, text: string,
     await page.waitForSelector(buttonSelector)
     await page.click(buttonSelector)
 
-    await sleep(1500)
+    await navigationPromise
 
     if (page.url().startsWith(url)) {
         throw '微博发布失败'
