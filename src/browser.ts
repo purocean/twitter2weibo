@@ -27,7 +27,7 @@ export const launch = async (proxy?: string): Promise<{page: puppeteer.Page, bro
 
 export const screenshot = async (page: puppeteer.Page, type: string) => {
    try {
-      page && await page.screenshot({path: join(config.rootPath, 'screenshot', `${type}_` + moment().format('YYYY-MM-DD HH:mm:ss') + '.png')})
+      page && await page.screenshot({path: join(config.rootPath, 'screenshot', `${type}_` + moment().format('YYYYMMDDHHmmss') + '.png')})
    } catch (error) {
       console.error('截图错误', error)
    }
