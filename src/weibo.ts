@@ -46,6 +46,7 @@ const doSend = async (page: Page, navigationPromise: Promise<any>, text: string,
     }
 
     await navigationPromise
+    await screenshot(page, '0')
 
     log('填写文字', text)
     const inputSelector = '#app > div.m-wrapper.m-wbox > div > main > div.m-box-model.m-pos-r > div > span > textarea:nth-child(1)'
@@ -55,6 +56,7 @@ const doSend = async (page: Page, navigationPromise: Promise<any>, text: string,
         e.dispatchEvent(new Event('input'))
     }, text)
     await sleep(2500)
+    await screenshot(page, '1')
 
     if (imgs.length > 0) {
         log('添加图片', imgs)
@@ -75,6 +77,15 @@ const doSend = async (page: Page, navigationPromise: Promise<any>, text: string,
     const buttonSelector = '#app > div.m-wrapper.m-wbox > div > header > div.m-box.m-flex-grow1.m-box-model.m-fd-row.m-aln-center.m-justify-end.m-flex-base0 > a'
     await page.waitForSelector(buttonSelector)
     await page.click(buttonSelector)
+    await screenshot(page, 'q')
+    await sleep(400)
+    await screenshot(page, 'w')
+    await sleep(400)
+    await screenshot(page, 'e')
+    await sleep(400)
+    await screenshot(page, 'r')
+    await sleep(400)
+    await screenshot(page, 't')
 
     await navigationPromise
 
