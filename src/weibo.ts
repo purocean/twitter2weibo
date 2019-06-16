@@ -53,6 +53,7 @@ const doSend = async (page: Page, navigationPromise: Promise<any>, text: string,
         e.value = val
         e.dispatchEvent(new Event('input'))
     }, text)
+    await sleep(1500)
 
     if (imgs.length > 0) {
         log('添加图片', imgs)
