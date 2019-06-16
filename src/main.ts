@@ -71,6 +71,7 @@ const loop = async () => {
             } catch (error) {
                 console.error('微博发送错误：', error)
                 // 有可能图片传错了，或者敏感词，去掉翻译和图试试
+                browser && screenshot(browser.page, 'weibo')
                 await weibo.send(browser.page, await format(item, false), [])
                 record(item.time)
                 browser && screenshot(browser.page, 'weibo')
