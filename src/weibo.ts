@@ -79,7 +79,7 @@ const doSend = async (page: Page, navigationPromise: Promise<any>, text: string,
     await page.click(buttonSelector)
 
     screenshot(page, 'log')
-    await sleep(5000)
+    await sleep(1500)
 
     if (page.url().startsWith(url)) {
         screenshot(page, 'log')
