@@ -79,6 +79,30 @@ const doSend = async (page: Page, navigationPromise: Promise<any>, text: string,
     await navigationPromise
 
     if (page.url().startsWith(url)) {
+        const modalText =  await page.evaluate(() => {
+            const modal = document.querySelector('.m-dialog')
+            return modal && modal.textContent
+        })
+
+        if (modalText) {
+            log('发布异常', modalText)
+            if (modalText.indexOf('有图片上传失败') > -1) {
+                log('点击确认发布')
+                await page.evaluate(() => {
+                    const button = document.querySelector('.m-btn-text-orange') as HTMLElement
+                    button && button.click()
+                })
+
+                return
+            }
+
+
+            if (modalText.indexOf('微博发布成功') > -1) {
+                log('可能要被屏蔽了很哈哈哈')
+                return
+            }
+        }
+
         await screenshot(page, 'error')
         throw '微博发布失败'
     } else {
