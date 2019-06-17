@@ -63,7 +63,7 @@ const loop = async () => {
             try {
                 const imgs = await Promise.all(item.pics.map(async (pic, i) => {
                     const path = join(config.rootPath, 'images', moment(item.time).tz('America/New_York').format('YYYYMMDDHHmmss') + '_' + i + '.jpg')
-                    await downloadFile(pic, isWsl ? toWslPath(path) : path, config.proxy)
+                    await downloadFile(pic.replace(/(name=(.*\&|.*$))/, 'name=medium'), isWsl ? toWslPath(path) : path, config.proxy)
                     return path
                 }))
                 await weibo.send(browser.page, await format(item, true), imgs)
