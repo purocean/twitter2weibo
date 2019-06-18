@@ -93,6 +93,8 @@ const doSend = async (page: Page, navigationPromise: Promise<any>, text: string,
                     button && button.click()
                 })
 
+                await sleep(1000)
+
                 const sp = await screenshot(page, 'illegal')
                 throw { type: 'illegal', sp }
             }
