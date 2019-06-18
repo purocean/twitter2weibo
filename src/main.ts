@@ -72,8 +72,17 @@ const loop = async () => {
                 console.error('微博发送错误：', error)
                 // 有可能图片传错了，或者敏感词，去掉翻译和图试试
                 browser && screenshot(browser.page, 'weibo')
-                await weibo.send(browser.page, await format(item, false), [])
-                record(item.time)
+
+                try {
+                    await weibo.send(browser.page, await format(item, false), [])
+                    record(item.time)
+                } catch (e) {
+                    // 法律法规错误，截图算了
+                    if (e && e.type === 'illegal' && e.sp) {
+                        await weibo.send(browser.page, '#川普推特搬运# ' + moment(item.time).tz('America/New_York').format('YYYY-MM-DD HH:mm:ssZ'), [e.sp])
+                        record(item.time)
+                    }
+                }
                 browser && screenshot(browser.page, 'weibo')
             }
         }

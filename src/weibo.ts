@@ -86,6 +86,17 @@ const doSend = async (page: Page, navigationPromise: Promise<any>, text: string,
 
         if (modalText) {
             log('发布异常', modalText)
+            if (modalText.indexOf('法律法规') > -1) {
+                log('点击确认')
+                await page.evaluate(() => {
+                    const button = document.querySelector('.m-btn-text-orange') as HTMLElement
+                    button && button.click()
+                })
+
+                const sp = await screenshot(page, 'illegal')
+                throw { type: 'illegal', sp }
+            }
+
             if (modalText.indexOf('有图片上传失败') > -1) {
                 log('点击确认发布')
                 await page.evaluate(() => {
