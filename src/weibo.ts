@@ -125,7 +125,7 @@ const doSend = async (page: Page, navigationPromise: Promise<any>, text: string,
 
 export const send = async (page: Page, text: string, imgs: string[] = []): Promise<Page> => {
     log('发微博', [text, imgs])
-    const navigationPromise = page.waitForNavigation({waitUntil: 'networkidle0'})
+    const navigationPromise = page.waitForNavigation()
 
     log('进入微博首页，点击发布')
     await page.goto('https://m.weibo.cn/')
