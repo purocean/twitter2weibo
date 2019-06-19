@@ -43,14 +43,16 @@ const loop = async () => {
             }
 
             const format = async (item: twitter.Post, t: boolean) => {
-                const chinese = t ? await translate(item.content) : ''
-                const content = (chinese ? chinese + '\n------------\n' : '') + item.content
+                const str = item.content.replace(/(#\S*)(\s|$)/g, '$1#')
+                const chinese = t ? await translate(str) : ''
+                const content = (chinese ? chinese + '\n------------\n' : '') + str
 
                 let text = '#川普推特搬运# ' + moment(item.time).tz('America/New_York').format('YYYY-MM-DD HH:mm:ssZ') + '\n'
                      + content + '\n'
                 if (item.quote) {
-                    const chinese = await translate(item.quote.content)
-                    const content = (chinese ? chinese + '\n------------\n' : '') + item.quote.content
+                    const str = item.quote.content.replace(/(#\S*)(\s|$)/g, '$1#')
+                    const chinese = await translate(str)
+                    const content = (chinese ? chinese + '\n------------\n' : '') + str
 
                     text += '\n引用> '
                     text +=  item.quote.user + ' | ' + moment(item.quote.time).tz('America/New_York').format('YYYY-MM-DD HH:mm:ssZ') + '\n'
