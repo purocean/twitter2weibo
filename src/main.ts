@@ -31,7 +31,7 @@ const loop = async () => {
 
     // 发送微博
     try {
-        browser = await launch()
+        browser = await launch(config.proxy)
 
         for (let i = 0; i < data.length; i++) {
             const item = data[i]
