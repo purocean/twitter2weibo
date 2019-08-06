@@ -29,7 +29,7 @@ export const fetch = async (page: Page): Promise<Post[]> => {
                 try {
                     const content = (x.children.item(0).children.item(1).children.item(1).children.item(1) as HTMLElement).innerText
                     const time = x.querySelector('time').dateTime
-                    const pics = [...x.children.item(0).children.item(1).querySelectorAll('img')].map(img => img.src)
+                    const pics = [...x.children.item(0).children.item(1).children.item(1).querySelectorAll('img')].map(img => img.src)
 
                     if (content.indexOf('次查看') > -1) {
                         return null
