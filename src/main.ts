@@ -100,4 +100,7 @@ export const main = async () => {
 
     await loop()
     tmp()
+
+    //const browser = await launch(config.proxy)
+    //await browser.page.goto('https://m.weibo.cn/')
 }

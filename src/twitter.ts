@@ -15,7 +15,7 @@ export interface Post {
 export const fetch = async (page: Page): Promise<Post[]> => {
     log('抓取推特')
     const navigationPromise = page.waitForNavigation({waitUntil: 'networkidle0'})
-    page.goto('https://twitter.com/realDonaldTrump')
+    page.goto('https://mobile.twitter.com/realDonaldTrump')
     await navigationPromise
 
     const selector = 'article'
@@ -27,7 +27,7 @@ export const fetch = async (page: Page): Promise<Post[]> => {
         const list = await page.$$eval(selector, (nodes: Element[]) => {
             return nodes.filter(x => x.textContent.indexOf('转推了') === -1 && x.textContent.indexOf('置顶推文') === -1).map(x => {
                 try {
-                    const content = (x.children.item(0).children.item(1).children.item(0).children.item(1) as HTMLElement).innerText
+                    const content = (x.children.item(0).children.item(1).children.item(1).children.item(1) as HTMLElement).innerText
                     const time = x.querySelector('time').dateTime
                     const pics = [...x.children.item(0).children.item(1).querySelectorAll('img')].map(img => img.src)
 
@@ -48,8 +48,8 @@ export const fetch = async (page: Page): Promise<Post[]> => {
 
                     return { content, time, pics }
                 } catch (error) {
-                    console.log(error)
-                    return {content: (x as HTMLElement).innerText, time: '', pics: []}
+                    throw error
+                    // return {content: (x as HTMLElement).innerText, time: '', pics: []}
                 }
             }).filter(k => !!k).reverse()
         })
